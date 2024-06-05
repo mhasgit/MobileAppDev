@@ -53,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             Container(
               width: 200,
-              child: TextField(controller: tcName, decoration: InputDecoration(labelText: 'Name')),
+              child: TextField(controller: tcName, decoration: InputDecoration(labelText: 'Name',)),
             ),
             Container(
               width: 200,
@@ -61,8 +61,6 @@ class _MyHomePageState extends State<MyHomePage> {
               child: TextField(controller: tcCellNo, decoration: InputDecoration(labelText: 'Cell No')),
             ),
             ElevatedButton(onPressed: saveData, child: Text('Save')),
-            // SizedBox(height: 80,),
-            // ElevatedButton(onPressed: getData, child: Text('Get'))
           ],
         ),
       ),
@@ -72,7 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
   // Show success message
   void showSuccessMessage() {
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Data successfully added'))
+        const SnackBar(content: Text('Data successfully added'))
     );
   }
 
@@ -86,21 +84,18 @@ class _MyHomePageState extends State<MyHomePage> {
     tcCellNo.clear();
 
     showSuccessMessage();
-
   }
 
   void getData() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    String? name = await preferences.getString('name');
-    tcName.text = name ?? '';
-
-    String? cellNo = await preferences.getString('cellNo');
-    tcCellNo.text = cellNo ?? '';
-
     setState(() {
+      tcName.text = preferences.getString('name') ?? '';
+      tcCellNo.text = preferences.getString('cellNo') ?? '';
     });
   }
-  //GridView
+}
+
+//GridView
   Widget BasicWidget02(){
     return GridView(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4),
@@ -161,4 +156,3 @@ class _MyHomePageState extends State<MyHomePage> {
             )
     );
   }
-}
