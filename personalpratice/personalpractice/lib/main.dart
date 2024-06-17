@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -35,6 +37,8 @@ class _MyHomePageState extends State<MyHomePage> {
   TextEditingController tcName = TextEditingController();
   TextEditingController tcCellNo = TextEditingController();
 
+  String name = '', cellNo = '';
+
   @override
   void initState() {
     super.initState();
@@ -51,16 +55,14 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Column(
           children: [
-            Container(
-              width: 200,
-              child: TextField(controller: tcName, decoration: InputDecoration(labelText: 'Name',)),
-            ),
-            Container(
-              width: 200,
-              height: 80,
-              child: TextField(controller: tcCellNo, decoration: InputDecoration(labelText: 'Cell No')),
-            ),
+            SizedBox(width: 300, height: 30, child: TextField(controller: tcName, textAlign: TextAlign.center, decoration: InputDecoration(hintText: 'Enter your Name'))),
+            SizedBox(width: 300, height: 30, child: TextField(controller: tcCellNo, textAlign: TextAlign.center, decoration: InputDecoration(hintText: 'Enter your Phone No'))),
+            SizedBox(height: 30),
             ElevatedButton(onPressed: saveData, child: Text('Save')),
+            SizedBox(height: 30),
+            ElevatedButton(onPressed: getData, child: Text('Get')),
+            Text(name),
+            Text(cellNo)
           ],
         ),
       ),
@@ -77,8 +79,8 @@ class _MyHomePageState extends State<MyHomePage> {
   // Data Persistence
   void saveData() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    await preferences.setString('name', tcName.text);
-    await preferences.setString('cellNo', tcCellNo.text);
+    await preferences.setString('Name', tcName.text);
+    await preferences.setString('CellNo', tcCellNo.text);
 
     tcName.clear();
     tcCellNo.clear();
@@ -89,8 +91,8 @@ class _MyHomePageState extends State<MyHomePage> {
   void getData() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     setState(() {
-      tcName.text = preferences.getString('name') ?? '';
-      tcCellNo.text = preferences.getString('cellNo') ?? '';
+       name = preferences.getString('Name') ?? '';
+       cellNo = preferences.getString("CellNo") ?? '';
     });
   }
 }

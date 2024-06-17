@@ -1,4 +1,5 @@
 import 'package:bottomnavigation/pages/gallery.dart';
+import 'package:bottomnavigation/pages/portfolio.dart';
 
 import '/pages/home.dart';
 import '/pages/settings.dart';
@@ -36,7 +37,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List pages = [HomePage(), AboutPage(), SettingsPage(), GalleryPage() ];
+  final List pages = [HomePage(), AboutPage(), SettingsPage(), GalleryPage(), Portfolio() ];
   int selectedPage = 0;
 
   void navChanged(int index) {
@@ -63,7 +64,11 @@ class _MyHomePageState extends State<MyHomePage> {
               label: 'settings'
           ),
           BottomNavigationBarItem(icon: Icon(Icons.browse_gallery),
-              label: 'gallery')
+              label: 'gallery'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.podcasts_rounded),
+            label: 'Porfolio'
+          )
         ],
       ),
     );
